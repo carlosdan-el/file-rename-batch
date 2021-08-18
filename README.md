@@ -6,10 +6,13 @@
 |-------------|--------|---------|
 | x64         | Active | 1.0.0   |
 
+<br>
+
 ## 📝 About
 
 This is a simple console application that was created to rename multiples 
 files in my backup driver. Fell free to use :)
+
 
 ### Languages and tools
 
@@ -20,14 +23,18 @@ files in my backup driver. Fell free to use :)
 
 ## 🚀 To Do
 
-- [] Apply all configurations in .json file;
-- [] Apply recursive option to read subfolders;
-- [] Allow keep original file names;
-- [] Allow multiples folders;
+- [ ] Apply all configurations in .json file;
+- [ ] Apply recursive option to read subfolders;
+- [ ] Allow keep original file names;
+- [ ] Allow multiples folders;
+
+<br>
 
 ## 📃 Requirements
 
 To execute this project, you need the version 3.1 or above of [.netcore SDK](https://dotnet.microsoft.com/download). If you already do it, see the next topic.
+
+<br>
 
 ## 💻 Instalation
 
@@ -57,6 +64,8 @@ cd ./src/Presentation && dotnet run
 ```
 Obs.: If you are using the Windows Terminal as default, the linux commands are allowed to use.
 
+ <br>
+  
 ## 📑 License
 
-This project use the MIT license. See more details [here](LICENCE.md).
+This project use the MIT license. See more details [here](LICENCE).
