@@ -48,14 +48,12 @@ Then, access the ```setting.json``` and add you chosen folders.
 
 ```` json
 {
-    //...
     "Folders": [
         {
             "From": "the_full_path_of_your_files_folder",
             "To": ""
         }
     ]
-    //...
 }
 ````
 
