@@ -125,8 +125,7 @@ namespace Presentation
 
         private static string RemoveInvalidCharacters(string word)
         {
-            word = Regex.Replace(word, "([\\s+])|([\\.\\,\\-])", "_");
-            return word;
+            return Regex.Replace(word, "([\\s+])|([\\.\\,\\-])", "_");
         }
 
         private static string ConvertNameTo(string name)
@@ -144,12 +143,13 @@ namespace Presentation
 
         private static void GenerateLog(List<string> logs)
         {
-            if(!Directory.Exists("./log"))
+            if(!Directory.Exists("../../log"))
             {
-                Directory.CreateDirectory("./log");
+                Directory.CreateDirectory("../../log");
             }
 
-            string logFile = $"./log/{DateTime.Now.ToString("yyyyMMdd")}.log";
+            string logFile = $"../../log/{DateTime.Now.ToString("yyyyMMdd")}.log";
+            Console.WriteLine(logFile);
             File.AppendAllLines(logFile, logs);
         }
 

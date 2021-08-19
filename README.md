@@ -4,7 +4,7 @@
 
 | Architeture | Status | Version |
 |-------------|--------|---------|
-| x64         | Active | 1.1.0   |
+| x64         | Active | 1.1.2   |
 
 <br>
 
