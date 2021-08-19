@@ -10,7 +10,7 @@
 
 ## 📝 About
 
-This is a console application that was created to rename multiples 
+A console application that was created to rename multiples 
 files in my backup driver. Fell free to use :)
 
 
