@@ -23,10 +23,10 @@ files in my backup driver. Fell free to use :)
 
 ## 🚀 To Do
 
-- [x] Apply all configurations in .json file;
-- [ ] Apply recursive option to read subfolders;
-- [ ] Allow keep original file names;
-- [ ] Allow multiples folders;
+- [x] Apply all configurations in .json file.
+- [ ] Apply recursive option to read subfolders.
+- [x] Allow keep original file names.
+- [x] Allow multiples folders.
 
 <br>
 
