@@ -4,13 +4,13 @@
 
 | Architeture | Status | Version |
 |-------------|--------|---------|
-| x64         | Active | 1.0.0   |
+| x64         | Active | 1.1.0   |
 
 <br>
 
 ## 📝 About
 
-This is a simple console application that was created to rename multiples 
+This is a console application that was created to rename multiples 
 files in my backup driver. Fell free to use :)
 
 
@@ -23,7 +23,7 @@ files in my backup driver. Fell free to use :)
 
 ## 🚀 To Do
 
-- [ ] Apply all configurations in .json file;
+- [x] Apply all configurations in .json file;
 - [ ] Apply recursive option to read subfolders;
 - [ ] Allow keep original file names;
 - [ ] Allow multiples folders;
@@ -32,37 +32,38 @@ files in my backup driver. Fell free to use :)
 
 ## 📃 Requirements
 
-To execute this project, you need the version 3.1 or above of [.netcore SDK](https://dotnet.microsoft.com/download). If you already do it, see the next topic.
+To execute this project, you need the version 3.1 or above of [.netcore SDK](https://dotnet.microsoft.com/download) installed.
 
 <br>
 
 ## 💻 Instalation
 
-### Add or remove folder
-
-Access the file RenameFileBatch.cs, then add new a new path to variable places.
-
-<code>string places = <your_files_path>;</code>
-
-Obs.: To add new extensions file, add a new item in the list
-<code>allowedImageExtensions</code>.
-
-### Linux/Mac
-
-Access the root folder of project from terminal and execute the follows commands:
+Open the terminal or CMD and run the follow command to install de pendendecies of project.
 
 ``` terminal
-cd ./src/Presentation && dotnet run
+cd ./src/Presentation && dotnet restore
 ```
 
-### Windows
+Then, access the ```setting.json``` and add you chosen folders.
 
-Access the root folder of project from cmd and execute the follow command:
+```` json
+{
+    //...
+    "Folders": [
+        {
+            "From": "the_full_path_of_your_files_folder",
+            "To": ""
+        }
+    ]
+    //...
+}
+````
+
+After that, run the command bellow:
 
 ``` terminal
-cd ./src/Presentation && dotnet run 
+dotnet run
 ```
-Obs.: If you are using the Windows Terminal as default, the linux commands are allowed to use.
 
  <br>
   

@@ -1,38 +1,28 @@
 ﻿using System;
+using System.Text.Json;
 using System.Collections.Generic;
 using System.IO;
+using Domain.Entities;
+using System.Text.RegularExpressions;
 
 namespace Presentation
 {
     class RenameFileBatch
     {
         private static List<string> logs = new List<string>();
+        
+        private static Settings settings;
 
         static void Main(string[] args)
         {
+            string settingsFile = File.ReadAllText("..\\config\\settings.json");
+            settings = JsonSerializer.Deserialize<Settings>(settingsFile);
+
             try
             {
-                string places = "C:\\Users\\Carlos\\Downloads";
-                List<string> allowedImageExtensions = new List<string>();
-                allowedImageExtensions.Add(".svg");
-                allowedImageExtensions.Add(".jpeg");
-                allowedImageExtensions.Add(".gif");
-                allowedImageExtensions.Add(".png");
-                allowedImageExtensions.Add(".jpg");
-
-                if(ValidatePath(places))
+                foreach(Folder folder in settings.Folders)
                 {
-                    string[] files = Directory.GetFiles(places);
-
-                    foreach(string file in files)
-                    {
-                        FileInfo fileInfo = new FileInfo(file);
-
-                        if(allowedImageExtensions.Contains(fileInfo.Extension))
-                        {
-                            RenameFiles(fileInfo);
-                        }
-                    }
+                    GetFolders(folder.From, folder.To);
                 }
             }
             catch(Exception error)
@@ -51,34 +41,53 @@ namespace Presentation
             }
         }
 
-        private static bool ValidatePath(string path)
+        private static void GetFolders(string currentPath, string newPath)
         {
-            return Directory.Exists(path);
+            if(Directory.Exists(currentPath))
+            {
+                string[] files = Directory.GetFiles(currentPath);
+                
+                foreach(string data in files)
+                {
+                    FileInfo file = new FileInfo(data);
+                    RenameFile(file, newPath);
+                }
+            }
         }
 
-        private static void RenameFiles(FileInfo file)
+        private static void RenameFile(FileInfo file, string newPath)
         {
             string date = DateTime.Now.ToString("yyyy-MM-dd");
             string hours = DateTime.Now.ToString("HH:mm:ss");
 
             try
             {
-                string extension = file.Extension;
-                string guid = Guid.NewGuid().ToString();
-                string fileDirectory = file.DirectoryName;
-                string newfileName = $"{guid}{extension}".ToLower().Replace("-", "_");
-                string newFileNamePath = Path.Combine(fileDirectory, newfileName);
+                if(settings.AllowedExtensions.Contains(file.Extension))
+                {
+                    string extension = file.Extension;
+                    string guid = Guid.NewGuid().ToString();
+                    string directoryPath = string.IsNullOrEmpty(newPath) ?
+                    file.DirectoryName : newPath;
+                    string newFileName = GenerateFileName(file);
+                    string fullPath = Path.Combine(directoryPath, newFileName);
 
-                Console.ForegroundColor = ConsoleColor.Green;
-                string message = $"\"{file.Name}\" renamed to " + 
-                $"\"{newfileName}\" in \"{fileDirectory}\"";
+                    Console.WriteLine(newFileName);
+                    
+                    
+                    string message = $"\"{file.Name}\" renamed to " + 
+                    $"\"{newFileName}\" in \"{directoryPath}\"";
 
-                file.MoveTo(newFileNamePath);
+                    if(!Directory.Exists(directoryPath))
+                    {
+                        Directory.CreateDirectory(directoryPath);
+                    }
 
-                Console.WriteLine(message);
+                    file.MoveTo(fullPath);
 
-                logs.Add($"{date} {hours} SUCCESS (Message: {message}).");
-                Console.WriteLine($"success: {message}");
+                    logs.Add($"{date} {hours} SUCCESS (Message: {message}).");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"success: {message}");
+                }
             }
             catch(Exception error)
             {
@@ -93,6 +102,43 @@ namespace Presentation
             finally
             {
                 Console.ResetColor();
+            }
+        }
+
+        private static string GenerateFileName(FileInfo file)
+        {
+            string fileName = file.Name;
+            string extension = file.Extension;
+
+            if(!settings.KeepFileName)
+            {
+                string guid = Guid.NewGuid().ToString();
+                fileName = guid;
+            }
+
+            fileName = fileName.Replace(extension, "");
+            fileName = RemoveInvalidCharacters(fileName);
+            fileName = ConvertNameTo(fileName);
+
+            return $"{fileName}{extension}";
+        }
+
+        private static string RemoveInvalidCharacters(string word)
+        {
+            word = Regex.Replace(word, "([\\s+])|([\\.\\,\\-])", "_");
+            return word;
+        }
+
+        private static string ConvertNameTo(string name)
+        {
+            string format = settings.FileNameFormat.ToLower();
+
+            switch(format)
+            {
+                case "uppercase":
+                    return name.ToUpper();
+                default:
+                    return name.ToLower();
             }
         }
 

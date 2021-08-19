@@ -1,0 +1,14 @@
+{
+    "Folders": [
+        {
+            "From": "the_full_path_of_your_files_folder",
+            "To": ""
+        }
+    ],
+    "KeepFileName": false,
+    "FileNameFormat": "lowercase",
+    "EnableRecursiveMode": false,
+    "AllowedExtensions": [ 
+        ".png",".jpeg", ".jpg", ".svg", ".pdf", ".zip", ".rar"
+    ]
+}
