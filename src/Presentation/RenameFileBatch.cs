@@ -15,7 +15,7 @@ namespace Presentation
 
         static void Main(string[] args)
         {
-            string settingsFile = File.ReadAllText("..\\config\\settings.json");
+            string settingsFile = File.ReadAllText("..\\..\\config\\settings.json");
             settings = JsonSerializer.Deserialize<Settings>(settingsFile);
 
             try
