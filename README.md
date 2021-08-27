@@ -32,7 +32,7 @@ files in my backup driver. Fell free to use :)
 
 ## 📃 Requirements
 
-To execute this project, you need the version 3.1 or above of [.netcore SDK](https://dotnet.microsoft.com/download) installed.
+To execute this project, you'll need the version 3.1 or above of [.netcore SDK](https://dotnet.microsoft.com/download) installed.
 
 <br>
 
